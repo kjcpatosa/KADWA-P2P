@@ -1,0 +1,426 @@
+@import url("https://fonts.googleapis.com/css?family=Acme|Lobster|Patua+One|Rubik|Sniglet");
+* {
+  box-sizing: border-box;
+}
+
+body header  {
+	height:auto!important;
+}
+
+body{
+	font-family: font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	background-image: url("assets/so-white.png");
+	background-size: 800px;
+	display: flex;
+	flex-direction: column;
+}
+
+header,
+section {
+  overflow-x: hidden;
+}
+
+:root {
+  --Sniglet-font: "Sniglet", cursive;
+  --Rubik: "Rubik", cursive;
+  --Patua: "Patua One", cursive;
+  --Lobster: "lobster", cursive;
+  --light-black: #2e2c2caf;
+  --bggradient: linear-gradient(to bottom, #08c5d1, #ffbf66); /*#ff5959, #800000*/
+  --light-gray: rgba(255, 255, 255, 0.877);
+}
+
+header a {
+  font-family: var(--Sniglet-font);
+  font-size: 1em;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: yellow;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+header {
+	flex: 1;
+	top: 0;
+	width: 100%;
+}
+
+header .nav-item:last-child {
+  padding-right: 10.5em;
+}
+
+header .nav-item {
+  padding: 0.9em;
+}
+
+header .navbar-brand {
+  padding-left: 8rem;
+}
+
+header .nav-link:hover {
+  color: yellow;
+}
+
+.primary-btn {
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+/********** main **************/
+a, a:hover, a:focus{
+	text-decoration: none;
+}
+
+button {
+  background-color: #ffbf66;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+#signin_btn, #sched_btn, #ssched_btn{
+	width: 100%;
+	background-color:#ffbf66;
+	font-weight: bold; 
+	font-size: 18px; 
+	border: none;
+	font-size: 18px;
+	color: white;
+}
+
+
+
+#navsignin_btn, #navsignup_btn{
+	width: 100%;
+	background-color: transparent;
+	border: 2px solid #ffbf66;
+	color: #ffbf66;
+	font-weight: bold; 
+	font-size: 18px; 
+	box-shadow: 1px 1px 2px grey;
+}
+
+#navsignup_btn:hover, #navsignin_btn:hover{
+	color: white;
+	background-color:#ffbf66;
+	font-weight: bold; 
+	font-size: 18px; 
+	border: 2px solid #ffbf66;
+	box-shadow: 1px 1px 2px grey;
+	-webkit-transition: width .35s ease-in-out;
+  transition: width .35s ease-in-out;
+}
+.signUp{
+	color: #ffbf66; 
+	font-weight: bold;
+}
+.signUp:hover{
+	color: #eda034; 
+	font-weight: bold;
+	font-size: 18px;
+}
+p.resetPass{
+	text-align: right;
+	font-size: 16px;
+}
+
+p.resetPass a{
+	color: grey;
+}
+
+p.resetPass a:hover{
+	color: maroon;
+	font-weight: bold;
+}
+
+input, select, small{
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 8px;
+}
+
+.col, .col-md-4, .col-md-6, .col-md-10, .col-md-12, .col-sm-1, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-12{
+	padding-left: 0;	
+}
+
+.row{
+	margin-left: 0;
+	
+}
+
+.dropdown-menu{
+	padding: 1rem 1rem;
+}
+
+.text-center {
+    text-align: left!important;
+}
+
+.modalheader{
+	text-align: left;
+}
+
+p,a{
+	font-size: 1rem;
+}
+
+label{
+	font-size: 1.25rem;
+}
+
+.card-title, .card-body, .card-title .card-body a{
+	font-size: 1.5rem!important;  
+ }
+  
+.card .card-text {
+    padding: 0px!important;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+#submitBtn {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #ffbf66;
+}
+/********** section 1 **************/
+
+.section-1 {
+  padding: 2%;
+}
+
+.section-1 .row .col-sm-6:last-child {
+  position: relative;
+}
+
+
+.border-radius {
+  border-radius: 340px;
+  width: 60%;
+}
+/********** section 2 **************/
+
+
+#tooltip {
+	background: #333;
+	color: white;
+	font-weight: bold;
+	padding: 4px 8px;
+	font-size: 13px;
+	border-radius: 4px;
+	display: none;
+}
+
+#tooltip[data-show] {
+	display: block;
+}
+
+#arrow,
+#arrow::before {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: inherit;
+}
+
+#arrow {
+	visibility: hidden;
+}
+
+#arrow::before {
+	visibility: visible;
+	content: '';
+	transform: rotate(45deg);
+}
+
+#tooltip[data-popper-placement^='top'] > #arrow {
+	bottom: -4px;
+}
+
+#tooltip[data-popper-placement^='bottom'] > #arrow {
+	top: -4px;
+}
+
+#tooltip[data-popper-placement^='left'] > #arrow {
+	right: -4px;
+}
+
+#tooltip[data-popper-placement^='right'] > #arrow {
+	left: -4px;
+}
+
+.row .sessInfo, .row .mentorSes{
+	font-size: 1.25rem!important;
+	margin: 0;
+}
+
+#sesConfirmed, #sesCancelled, #sesDisabled{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: right; 
+	color: white;
+}
+
+#sesPending{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: right; 
+}
+
+#button #bookBtn{
+	max-width: 40.25px;
+}
+
+footer {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.815);
+  overflow-x: hidden;
+  padding: 14vmin 18vmin;
+}
+
+/* It is Adjacent sibling combinator */
+
+footer .column i + i {
+  padding: 0 0.5em;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.815);
+  z-index: 9999;
+  transition: all 1.5s ease;
+}
+
+:root label.checkbox-bootstrap input[type=checkbox] {
+  /* hide original check box */
+  opacity: 0;
+  position: absolute;
+  /* find the nearest span with checkbox-placeholder class and draw custom checkbox */
+  /* draw checkmark before the span placeholder when original hidden input is checked */
+  /* disabled checkbox style */
+  /* disabled and checked checkbox style */
+  /* when the checkbox is focused with tab key show dots arround */
+}
+:root label.checkbox-bootstrap input[type=checkbox] + span.checkbox-placeholder {
+  width: 14px;
+  height: 14px;
+  border: 1px solid;
+  border-radius: 3px;
+  /*checkbox border color*/
+  border-color: #737373;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 7px 0 -20px;
+  vertical-align: middle;
+  text-align: center;
+}
+:root label.checkbox-bootstrap input[type=checkbox]:checked + span.checkbox-placeholder {
+  background: #0ccce4;
+}
+:root label.checkbox-bootstrap input[type=checkbox]:checked + span.checkbox-placeholder:before {
+  display: inline-block;
+  position: relative;
+  vertical-align: text-top;
+  width: 5px;
+  height: 9px;
+  /*checkmark arrow color*/
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  /*can be done with post css autoprefixer*/
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  content: "";
+}
+:root label.checkbox-bootstrap input[type=checkbox]:disabled + span.checkbox-placeholder {
+  background: #ececec;
+  border-color: #c3c2c2;
+}
+:root label.checkbox-bootstrap input[type=checkbox]:checked:disabled + span.checkbox-placeholder {
+  background: #d6d6d6;
+  border-color: #bdbdbd;
+}
+:root label.checkbox-bootstrap input[type=checkbox]:focus:not(:hover) + span.checkbox-placeholder {
+  outline: 1px dotted black;
+}
+:root label.checkbox-bootstrap.checkbox-lg input[type=checkbox] + span.checkbox-placeholder {
+  width: 26px;
+  height: 26px;
+  border: 2px solid;
+  border-radius: 5px;
+  /*checkbox border color*/
+  border-color: #737373;
+}
+:root label.checkbox-bootstrap.checkbox-lg input[type=checkbox]:checked + span.checkbox-placeholder:before {
+  width: 9px;
+  height: 15px;
+  /*checkmark arrow color*/
+  border: solid white;
+  border-width: 0 3px 3px 0;
+}

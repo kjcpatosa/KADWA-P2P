@@ -1,0 +1,208 @@
+@media only screen and (max-width: 768px) {
+  input, select, label,.card-title, .card-body, a, h5{
+	font-size: 1rem!important;  
+  }
+  
+  #button, #button img{
+	max-width: 42px!important;
+	height: auto;
+	padding: 0!important;
+  }
+  
+  #delAll{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/delete_outline-black-18dp.svg");
+  }
+  
+  #disAll{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/close-white-18dp.svg");
+  }
+  
+  #addMen{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/add-white-18dp.svg");
+  }
+  
+  h1, h3{
+	font-size: 1.5rem!important;  
+  }
+  
+  .row .sessInfo, .row .mentorSes{
+	font-size: 1rem!important;
+	margin: 0;
+  }
+  
+  #sesConfirmed, #sesCancelled, #sesDisabled{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: right; 
+	color: white;
+  }
+  
+  #sesPending{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: right; 
+  }
+  
+  #notifDrop li p{
+	font-size: 1rem!important;
+  }
+  
+  header .navbar-brand {
+    padding-left: 1rem;
+  }
+  
+  .section-1 .row .col-md-6 .panel {
+    position: initial;
+    width: initial;
+    height: initial;
+  }
+  .section-2 .cover {
+    background-position: -25vmin -10vmin;
+  }
+  .numbers .rect {
+    width: 10rem;
+    height: 8rem;
+  }
+  .numbers .rect h1 {
+    font-size: 2rem;
+  }
+
+  .section-3 {
+    height: inherit;
+    padding: 10vmin !important;
+  }
+  .section-3 .row h1 {
+    padding: 6vmin 4vmin;
+  }
+  .section-3 .platform .col-md-6 {
+    text-align: center !important;
+  }
+  .section-3 .desktop i {
+    font-size: 8vmin;
+  }
+  .section-4 .carousel-item {
+    padding-left: 0.6rem;
+  }
+  footer .row .col-md-2 {
+    margin-top: 8vmin;
+  }
+}
+
+/* screen size 375px */
+
+@media only screen and (max-width: 375px) {
+  .section-4 .card {
+    width: 18em;
+  }
+  
+  input, select, label,.card-title, .card-body, a, h5{
+	font-size: 0.75rem!important;  
+  }
+  
+  #button img{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/book_icon_big.png");
+  }
+  
+  #delAll{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/delete_outline-black-18dp.svg");
+  }
+  
+  #disAll{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/close-white-18dp.svg");
+  }
+  
+  #addMen{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/add-white-18dp.svg");
+  }
+  
+  .row .sessInfo, .row .mentorSes{
+	font-size: 1rem!important;
+	margin: 0;
+  }
+  
+  #sesConfirmed, #sesCancelled, #sesDisabled{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: left; 
+	color: white;
+  }
+  
+  #sesPending{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: left; 
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .section-4 .carousel-inner {
+    margin-left: -4vmin;
+  }
+  
+  input, select, label,.card-title, .card-body, a, h5{
+	font-size: 0.65rem!important;  
+  }
+  
+  #notifDrop li p{
+	font-size: 0.75rem!important;
+  }
+  #notifDiv{
+	width:  16em;
+  }
+  
+  .row .sessInfo, .row .mentorSes{
+	font-size: 1rem!important;
+	margin: 0;
+  }
+  
+  #sesConfirmed, #sesCancelled, #sesDisabled{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: left; 
+	color: white;
+  }
+  
+  #sesPending{
+	font-weight: normal;
+	font-size: 1rem!important;
+	float: left; 
+  }
+  
+  #button img{
+	max-width: 90px!important;  
+	height: auto;
+	content:url("assets/book_icon_big.png");
+  }
+  
+  #delAll{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/delete_outline-black-18dp.svg");
+  }
+  
+  #disAll{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/close-white-18dp.svg");
+  }
+  
+  #addMen{
+	max-width: 90px!important;  
+	height: 42px;
+	content:url("assets/add-white-18dp.svg");
+  }
+}
