@@ -30,8 +30,10 @@
 		$college = $connection->real_escape_string($_POST['college']);
 		$course = $connection->real_escape_string($_POST['course']);
 		$year = $connection->real_escape_string($_POST['year']);
+		date_default_timezone_set('Asia/Manila');
+		$date = date('Y-m-d');
 		
-		$sql = "INSERT INTO `user_information` (`email`, `password`, `studnum`, `lastname`, `firstname`, `middlename`, `college_ID`, `crs_ID`, `yearlvl`, `accesslvl`) VALUES ('$email', '$pword', '$studnum', '$lname', '$fname', '$mname', '$college', '$course', '$year', '1')";
+		$sql = "INSERT INTO `user_information` (`email`, `password`, `studnum`, `lastname`, `firstname`, `middlename`, `college_ID`, `crs_ID`, `yearlvl`, `joined`, `firstLogIn`,`accesslvl`) VALUES ('$email', '$pword', '$studnum', '$lname', '$fname', '$mname', '$college', '$course', '$year', '$date', 'YES', '1')";
 		
 		if (!$connection -> query($sql)) {
 		  echo("Error description: " . $connection -> error);
@@ -40,9 +42,16 @@
 		}
 		
 	}
+	$option = "";
+	$sql2 = "SELECT * FROM college";
+	if($query2 = $connection->query($sql2)){
+		if($query2->num_rows > 0){
+			while($row2 = $query2->fetch_array()){
+				$option = $option."<option value = ".$row2['college_ID']."> ".$row2['collegeName']."</option>";
+			}
+		}
+	}	
 	
-	$connection -> close();
-    
 ?>
 
 
@@ -154,24 +163,24 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-6">
-										<select class="form-control form-control-lg" id="college" name = "college" required>
+									<div class="col-md-12">
+										<select class="form-control form-control-lg" id="college" name = "college" onchange = "try()" required>
 										  <option value="" disabled selected value>College</option>
-										  <option value = "CET">CET</option>
-										  <option value = "College of Science">CS</option>
-										  <option value = "College of Medicine">College of Medicine</option>
-										  <option value = "CET">CB</option>
-										  <option value = "CET">ano pa ba iba</option>
-										</select>
-									</div>
-									<div class="col-md-6">	
-										<select class="form-control form-control-lg" id="course" name = "course" required>
-										  <option value="" disabled selected value>Course</option>
+										  <?php
+												echo $option;
+										  ?>
+										  <!--<option value = "<?php echo $row2["college_ID"]; ?>"><?php echo $row2["collegeName"];?></option>-->
 										</select>
 									</div>
 								</div>
 								<div class = "row">
-									<div class="col-md-12">
+									<div class="col-md-9">	
+										<div id = "courses"> </div>
+										<select class="form-control form-control-lg" id="course" name = "course" required>
+										  <option value="" disabled selected value>Course</option>
+										</select>
+									</div>
+									<div class="col-md-3">
 										<select class="form-control form-control-lg"id="year" name = "year" required>
 												  <option value="" disabled selected value>Year Level</option>
 												  <option value = "1">1st</option>
@@ -222,60 +231,70 @@ crossorigin="anonymous"></script>
 crossorigin="anonymous"></script>
 <script src="./main.js"></script>
 <script>
+$(document).ready(function(){
+	$('#college').on('change', function() {
+	   var selectValue = $(this).val();
+	   alert(selectValue);
+	   $.ajax({
+			url:'coursesSelect.php',
+			method:'post',
+			data:{college:selectValue},
+			dataType: 'json',
+			success:function(data)
+			{
+				var len = data.length;
+				alert(len);
+				$('#course').empty();
+				for (i = 0; i < len; i++) {
+					var id = data[i]['id'];
+					var name = data[i]['name'];
+					$('#course').append("<option value='" + id + "'>" + name + "</option>");
+				}
+			}
+		});
+	});
+});
 
-    $("#addRow").click(function () {
-        var html = '';
-        html += '<div id="inputFormRow" style = "background-color: #fffaed; border: 2px solid #dedede; padding-top: 15px; margin :4px">';
-		html += '<div class="input-group mb-3">';
-		html += '<div class="col-md-2">';
-		html += '<input class="form-control form-control-md" type = "text" placeholder = "Subject Code" id = "childsubjectCode" name = "subjectCode[]" oninput="this.className = "form-control form-control-md""></input>';
-		html += '</div>';
-		html += '<div class="col-md-3">';
-		html += '<input class="form-control form-control-md" type = "text" placeholder = "Subject Name" id = "childsubjectName" name = "subjectName[]" oninput="this.className = "form-control form-control-md""></input>';
-		html += '</div>';
-		html += '<div class="col-md-2">';
-		html += '<select class="form-control form-control-md" id="childdayofWeek" name = "dayofWeek[]">';
-		html += '<option value="" disabled selected>Day</option>';
-		html += '<option value = "MON">Monday</option>';
-		html += '<option value = "TUE">Tuesday</option>';
-		html += '<option value = "WED">Wednesday</option>';
-		html += '<option value = "THU">Thursday</option>';
-		html += '<option value = "FRI">Friday</option>';
-		html += '<option value = "SAT">Saturday</option>';
-		html += '<option value = "SUN">Sunday</option>';
-		html += '</select>';
-		html += '</div>';
-		html += '<div class="col-md-2">';
-		html += '<input class="form-control form-control-md" type = "time" placeholder = "Start Time" id = "childsTime" name = "sTime[]" oninput="this.className = "form-control form-control-md""></input>';
-		html += '</div>';
-		html += '<div class="col-md-2">';
-		html += '<input class="form-control form-control-md" type = "time" placeholder = "End Time" id = "childeTime" name = "eTime[]" oninput="this.className = "form-control form-control-md""></input>';
-		html += '</div>';
-		html += '<div class="col-md-1">';
-		html += '<button id="removeRow" type="button" class="btn btn-danger btn-md">-</button>';
-		html += '</div>';
-		html += '</div>';
+$("#addRow").click(function () {
+	var html = '';
+	html += '<div id="inputFormRow" style = "background-color: #fffaed; border: 2px solid #dedede; padding-top: 15px; margin :4px">';
+	html += '<div class="input-group mb-3">';
+	html += '<div class="col-md-2">';
+	html += '<input class="form-control form-control-md" type = "text" placeholder = "Subject Code" id = "childsubjectCode" name = "subjectCode[]" oninput="this.className = "form-control form-control-md""></input>';
+	html += '</div>';
+	html += '<div class="col-md-3">';
+	html += '<input class="form-control form-control-md" type = "text" placeholder = "Subject Name" id = "childsubjectName" name = "subjectName[]" oninput="this.className = "form-control form-control-md""></input>';
+	html += '</div>';
+	html += '<div class="col-md-2">';
+	html += '<select class="form-control form-control-md" id="childdayofWeek" name = "dayofWeek[]">';
+	html += '<option value="" disabled selected>Day</option>';
+	html += '<option value = "MON">Monday</option>';
+	html += '<option value = "TUE">Tuesday</option>';
+	html += '<option value = "WED">Wednesday</option>';
+	html += '<option value = "THU">Thursday</option>';
+	html += '<option value = "FRI">Friday</option>';
+	html += '<option value = "SAT">Saturday</option>';
+	html += '<option value = "SUN">Sunday</option>';
+	html += '</select>';
+	html += '</div>';
+	html += '<div class="col-md-2">';
+	html += '<input class="form-control form-control-md" type = "time" placeholder = "Start Time" id = "childsTime" name = "sTime[]" oninput="this.className = "form-control form-control-md""></input>';
+	html += '</div>';
+	html += '<div class="col-md-2">';
+	html += '<input class="form-control form-control-md" type = "time" placeholder = "End Time" id = "childeTime" name = "eTime[]" oninput="this.className = "form-control form-control-md""></input>';
+	html += '</div>';
+	html += '<div class="col-md-1">';
+	html += '<button id="removeRow" type="button" class="btn btn-danger btn-md">-</button>';
+	html += '</div>';
+	html += '</div>';
 
-        $('#newRow').append(html);
-    });
+	$('#newRow').append(html);
+});
 
- /*remove row*/
-    $(document).on('click', '#removeRow', function () {
-        $(this).closest('#inputFormRow').remove();
-    });
-	
-</script>
-<script>
+$(document).on('click', '#removeRow', function () {
+	$(this).closest('#inputFormRow').remove();
+});
 
-/* /** WANT TO BE A MENTOR
-$(document).ready(function() {
-
-    var $ssched = $("#ssched_btn").hide(),
-        $cbs = $('input[name="name_mentorOrNot"]').click(function() {
-            $ssched.toggle( $cbs.is(":checked") );
-        });
-
-}); */
 
 $(document).ready(function(){
 	load_data();
@@ -289,7 +308,6 @@ $(document).ready(function(){
 			{
 				existing = data;
 				if(existing == "1"){
-					//alert("hehe");
 					$('#result').html("<small style = \"color: red; font-size: 18px; padding: 0\">Email already associated with an existing account.</small>");
 					document.getElementById('nextBtn').disabled = true;
 				}
@@ -329,7 +347,6 @@ $(document).ready(function(){
 			{
 				existing = data;
 				if(existing == "1"){
-					//alert("hehe");
 					$('#result2').html("<small style = \"color: red; font-size: 18px; padding: 0\">This student number is already associated with an existing account.</small>");
 					document.getElementById('nextBtn').disabled = true;
 				}
@@ -354,17 +371,6 @@ $(document).ready(function(){
 	});
 	
 });
-/* $('#sched_btn').on('click',function(){
-    $('.modal-content').load('scheduleModal.php',function(){
-        $('#exampleModalLong').modal({show:true});
-    });
-});
-
-$('#ssched_btn').on('click',function(){
-    $('.modal-content').load('mentorSched.php',function(){
-		$('#seshSched').modal({show:true});
-    });
-}); */
 
 </script>
 

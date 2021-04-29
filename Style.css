@@ -171,7 +171,7 @@ input, select, small{
 	margin-bottom: 8px;
 }
 
-.col, .col-md-4, .col-md-6, .col-md-10, .col-md-12, .col-sm-1, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-12{
+.col, .col-md-3, .col-md-4, .col-md-6,.col-md-9, .col-md-10, .col-md-12, .col-sm-1, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-12{
 	padding-left: 0;	
 }
 

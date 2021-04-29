@@ -1,3 +1,28 @@
+<?php
+	session_start();
+	
+	$host = 'localhost';
+	$username = 'root';
+	$password = '';
+	$database = 'kadwa';
+ 
+	if (!isset($connection)) {
+ 
+		$connection = new mysqli($host, $username, $password, $database);
+ 
+		if (!$connection) {
+			echo 'Cannot connect to database server';
+			exit;
+		}     
+	}    
+
+	if ($connection -> connect_errno) {
+	  echo "Failed to connect to MySQL: " . $connection -> connect_error;
+	  exit();
+	}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +103,13 @@
 				<a href="#" class="nav-link d-flex flex-row"  STYLE = "font-size: 18px;"id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img class="mr-2" src="assets/avatar-icon-40x40.png" width="40" height="40" alt="avatar">
 					<div class="media-body">
-						GABRIELA
+						<?php
+							$sql = "SELECT lastname, firstname FROM user_information WHERE user_ID = '".$_SESSION['userID']."'"; 
+							$query = $connection->query($sql);
+							
+							$row = $query->fetch_array(MYSQLI_ASSOC);
+							echo ucwords(strtolower($row["lastname"])),", ", ucwords(strtolower($row["firstname"]));
+						?>
 					</div>
 					<span class="material-icons">expand_more</span>
 				</a>
@@ -110,10 +141,36 @@
 										<div class="col-sm-12">
 											<center>
 												<img src="assets/avatar_girl.jpg" width = "500" style = "border-radius: 50%;" class="img-fluid" alt="Responsive image"/>
-												<h3 style = "color: #09054f"> Gabriela Dela Cruz </h3>
-												<h6> Bachelor of Science in Computer Science </h6>
-												<h6 style = "color: #09054f"> gcdc1234@plm.edu.ph </h6>
-												<h6> Joined Feb 2018 </h6>
+												<h3 style = "color: #09054f"> 
+													<?php 
+														$sql = "SELECT user_information.lastname, user_information.firstname, user_information.crs_ID, user_information.email, user_information.studnum, user_information.joined, courses.* FROM user_information CROSS JOIN courses WHERE user_ID = '".$_SESSION['userID']."' AND user_information.crs_ID = courses.crs_ID"; 
+														$query = $connection->query($sql);
+														
+														$row = $query->fetch_array(MYSQLI_ASSOC);
+														echo ucwords(strtolower($row["lastname"])),", ", ucwords(strtolower($row["firstname"]));
+													?> 
+												</h3>
+												<h6 style = "color: #09054f"> 
+													<?php
+														echo strtolower($row["email"]);
+													?>
+												</h6>
+												<h6 style = "color: #09054f">
+													<?php
+														echo strtolower($row["studnum"]);
+													?>
+												</h6>
+												<h6> 
+													<?php
+														echo $row["crsName"];
+													?>
+												</h6>
+												<h6> Joined 
+													<?php
+														$date = $row["joined"];
+														echo date('F Y', strtotime($date));
+													?>
+												</h6>
 											</center>
 										</div>
 									</div>
@@ -133,25 +190,19 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="account-fn">First Name</label>
-											<input class="form-control" type="text" id="account-fn" value="Daniel" required="">
+											<input class="form-control" type="text" id="account-fn" value="<?php echo ucwords(strtolower($row["lastname"]))?>" required="" disabled>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="account-ln">Last Name</label>
-											<input class="form-control" type="text" id="account-ln" value="Adams" required="">
+											<input class="form-control" type="text" id="account-ln" value="<?php echo ucwords(strtolower($row["firstname"]))?>" required="" disabled>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="account-email">E-mail Address</label>
-											<input class="form-control" type="email" id="account-email" value="daniel.adams@example.com" disabled="">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="account-phone">Phone Number</label>
-											<input class="form-control" type="text" id="account-phone" value="+7 (805) 348 95 72" required="">
+											<input class="form-control" type="email" id="account-email" value="<?php echo $row["email"]?>" disabled="">
 										</div>
 									</div>
 									<div class="col-md-6">
