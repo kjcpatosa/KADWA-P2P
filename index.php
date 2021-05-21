@@ -1,48 +1,58 @@
 <?php
 	session_start();
-    $host = 'localhost';
-    $username = 'root';
-    $password = '';
-    $database = 'kadwa';
- 
-    if (!isset($connection)) {
- 
-        $connection = new mysqli($host, $username, $password, $database);
- 
-		if (!$connection) {
-			echo 'Cannot connect to database server';
-			exit;
-		}     
-	}    
+    
+	include("connection.php");
 
-	if ($connection -> connect_errno) {
-	  echo "Failed to connect to MySQL: " . $connection -> connect_error;
-	  exit();
+	//check if userid exists redirect to main page
+	if(isset($_SESSION["userID"]) && !is_null($_SESSION["userID"]))
+	{
+    	echo "<script>window.location.href='main.php';</script>";
+    	exit();
 	}
 	
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
-		$email = $connection->real_escape_string($_POST['email']);
-		$pword = $connection->real_escape_string($_POST['pword']);
-		
-		$sql = "SELECT * FROM user_information WHERE email = '$email' AND password = '$pword'";
-		$query = $connection->query($sql); 
-		
-		if (!$connection -> query($sql)) {
-		  echo("Error description: " . $connection -> error);
+	if($_SERVER["REQUEST_METHOD"] == "POST")
+	{
+		if(!preg_match("/[_a-z0-9]+(\.[_a-z0-9]+)*@plm\.edu\.ph/i", $_POST['email']))
+		{
+			echo "Invalid Credentials.";
 		}
-		
-		if($query->num_rows > 0){
+		else 
+		{
+			$n = strlen($_POST["pword"]);
+			if($n < 8 || $n > 20 || !preg_match("/[a-z0-9]/i", $_POST['pword']))
+			{
+				echo "Invalid Credentials.";
+			}
+			else
+			{
+				$email = substr($_POST['email'],0,-11);
+				$sql = "SELECT * FROM user_information WHERE email = '$email'";
+				$query = $con->query($sql); 
 			
-			$row = $query->fetch_array();
-			$_SESSION['userID'] = $row['user_ID'];
-			echo "<script>window.location.href=\"main.php\";</script>";
+				if (!$con -> query($sql))
+				{
+				  echo("Error description: " . $con -> error);
+				}
+			
+				if($query->num_rows > 0)
+				{
+					$row = $query->fetch_assoc();
+					if(password_verify($_POST["pword"], $row["password"]))
+					{
+						$_SESSION['userID'] = $row['user_ID'];
+						echo "<script>window.location.href=\"main.php\";</script>";
+					}
+					else
+					{
+						echo "<script>alert(\"Invalid username or password\");window.location.href=\"index.php\";</script>";
+					}
+				}
+				else
+				{
+					echo "<script>alert(\"Invalid username or password\");window.location.href=\"index.php\";</script>";
+				}
+			}
 		}
-		else{
-			echo "<script>alert(\"Invalid username or password\");window.location.href=\"index.php\";</script>";
-		}
-		
-		
-		
 	}
     
 ?>

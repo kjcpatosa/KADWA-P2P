@@ -72,10 +72,6 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 
-
-	
-
-
 	
 function check_pass() {
     if (document.getElementById('pword').value ==
@@ -86,5 +82,4 @@ function check_pass() {
 		alert("Password did not match.");
     }
 }
-
 
