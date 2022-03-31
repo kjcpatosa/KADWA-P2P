@@ -88,12 +88,23 @@ header .nav-link:hover {
   font-weight: bold;
 }
 
+/* .modal{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 250px;
+  overflow-y: auto;
+} */
+
 /********** main **************/
 a, a:hover, a:focus{
 	text-decoration: none;
 }
 
-button {
+/* button {
   background-color: #ffbf66;
   color: #ffffff;
   border: none;
@@ -105,7 +116,7 @@ button {
 
 button:hover {
   opacity: 0.8;
-}
+} */
 
 #prevBtn {
   background-color: #bbbbbb;
@@ -258,6 +269,13 @@ input.invalid {
   border-radius: 340px;
   width: 60%;
 }
+
+.modal:nth-of-type(even) {
+    z-index: 1052 !important;
+}
+.modal-backdrop.show:nth-of-type(even) {
+    z-index: 1051 !important;
+}
 /********** section 2 **************/
 
 
@@ -330,6 +348,7 @@ input.invalid {
 #button #bookBtn{
 	max-width: 40.25px;
 }
+
 
 footer {
   left: 0;
